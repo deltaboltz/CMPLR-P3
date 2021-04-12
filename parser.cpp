@@ -295,7 +295,7 @@ static node<std::string> Stat()
     }
     return root;
   }
-  else if(t.id == keyword && !t.instance.compare("block"))
+  else if(t.id == keyword && !t.instance.compare("begin"))
   {
     root.insert(Block());
     return root;
@@ -333,7 +333,7 @@ static node<std::string> Stat()
     }
     return root;
   }
-  else if(t.id == keyword && !t.instance.compare("goto"))
+  else if(t.id == keyword && !t.instance.compare("proc"))
   {
     root.insert(Goto());
     if(t.id == opordel && !t.instance.compare(";"))
@@ -451,10 +451,9 @@ static node<std::string> Loop()
       {
         root.insert(t);
         t = scan(in);
-
-        root.insert(Stat());
-        return root;
       }
+      root.insert(Stat());
+      return root;
       parseErr("opTK: ']'");
     }
     parseErr("opTK: '['");
