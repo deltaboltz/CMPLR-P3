@@ -263,7 +263,7 @@ static node<std::string> mStat()
 {
   node<std::string> root("<mStat>");
 
-  if(t.id == keyword && !t.instance.compare("stat"))
+  if(t.id == keyword && (!t.instance.compare("stat") || !t.instance.compare("outter")))
   {
     root.insert(Stat());
     root.insert(mStat());
@@ -349,7 +349,7 @@ static node<std::string> Stat()
     }
     return root;
   }
-  else if(t.id == keyword && !t.instance.compare("label"))
+  else if(t.id == keyword && !t.instance.compare("void"))
   {
     root.insert(Label());
     if(t.id == opordel && !t.instance.compare(";"))
@@ -361,7 +361,7 @@ static node<std::string> Stat()
     return root;
   }
 
-  parseErr("kwTK : {in, out, block, if, loop, assign, goto, or label}");
+  parseErr("kwTK : {in, out, begin, if, loop, assign, proc, or label}");
 }
 
 static node<std::string> In()
