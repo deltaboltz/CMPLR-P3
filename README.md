@@ -5,6 +5,9 @@ How to Run:
 make clean:
 	clears up any left over binaries and object files of an older run
 
+make outclean:
+	removes the output file "frontEnd"
+
 make:
   compiles the entire program
 

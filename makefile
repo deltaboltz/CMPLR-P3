@@ -12,7 +12,10 @@ $(OUTPUT): main.o parser.o scanner.o
 	make clean
 
 clean:
-	$(CLEANCOMM) *.o $(OUTPUT)
+	$(CLEANCOMM) *.o
+
+outclean:
+	$(CLEANCOMM) $(OUTPUT)
 
 run:
 	$(OUTPUT) input.sp21
