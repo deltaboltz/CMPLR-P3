@@ -423,6 +423,12 @@ static node<std::string> If()
         root.insert(t);
         t = scan(in);
       }
+
+      if(t.id == keyword && !t.instance.compare("then"))
+      {
+        root.insert(t);
+        t = scan(in);
+      }
       root.insert(Stat());
       return root;
       parseErr("opTK: ']'");
