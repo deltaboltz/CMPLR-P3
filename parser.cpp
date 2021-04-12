@@ -467,6 +467,8 @@ static node<std::string> Assign()
   node<std::string> root("<assign>");
   if(t.id == keyword && !t.instance.compare("assign"))
   {
+    root.insert(t);
+    t = scan(in);
     if(t.id == identifier)
     {
       root.insert(t);
