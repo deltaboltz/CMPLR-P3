@@ -471,12 +471,19 @@ static node<std::string> Assign()
     root.insert(t);
     t = scan(in);
 
-    if(t.id == opordel && !t.instance.compare(":="))
+    if(t.id == opordel && !t.instance.compare(":"))
     {
       root.insert(t);
       t = scan(in);
-      root.insert(Expr());
-      return root;
+
+      if(t.id == opordel && !t.instance.compare("="))
+      {
+        root.insert(t);
+        t = scan(in);
+
+        root.insert(Expr());
+        return root;
+      }
     }
     parseErr("opTK: ':='");
   }
