@@ -489,10 +489,35 @@ static node<std::string> R0()
 {
   node<std::string> root("<R0>");
 
+  if(t.id == opordel && !t.instance.compare("=>"))
+  {
+    root.insert(t);
+    t = scan(in);
+    return root;
+  }
+
+  if(t.id == opordel && !t.instance.compare("=<"))
+  {
+    root.insert(t);
+    t = scan(in);
+    return root;
+  }
+  if(t.id == opordel && !t.instance.compare("=="))
+  {
+    root.insert(t);
+    t = scan(in);
+    return root;
+  }
   if(t.id == opordel && !t.instance.compare("["))
   {
     root.insert(t);
     t = scan(in);
+
+    if(t.id == opordel && !t.instance.compare("=="))
+    {
+      root.insert(t);
+      t = scan(in);
+    }
 
     if(t.id == opordel && !t.instance.compare("]"))
     {
@@ -508,33 +533,11 @@ static node<std::string> R0()
     t = scan(in);
     return root;
   }
-  else if(t.id == opordel && !t.instance.compare("="))
-  {
-    root.insert(t);
-    t = scan(in);
-
-    if(t.id == opordel && !t.instance.compare(">"))
-    {
-      root.insert(t);
-      t = scan(in);
-      return root;
-    }
-    else if(t.id == opordel && !t.instance.compare("<"))
-    {
-      root.insert(t);
-      t = scan(in);
-      return root;
-    }
-    else if(t.id == opordel && !t.instance.compare("="))
-    {
-      root.insert(t);
-      t = scan(in);
-      return root;
-    }
-  }
   parseErr("opTK: '=', '<', '>', '%'");
   return root;
 }
+
+
 
 static node<std::string> Label()
 {
