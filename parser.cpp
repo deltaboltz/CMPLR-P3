@@ -118,6 +118,11 @@ static node<std::string> Vars()
             {
               root.insert(t);
               t = scan(in);
+
+              if(t.instance == "data")
+              {
+                Vars();
+              }
               return root;
             }
             return root;
