@@ -46,79 +46,94 @@ node<std::string> parser(std::istream& stream)
   return root;
 }
 
+//<program> -> <vars> kwTK(main) <block>
 static node<std::string> Program()
 {
-  node<std::string> root("<program>");
+  node<std::string> root("<program>"); //set the root of the node to <program>
 
-  root.insert(Vars());
+  root.insert(Vars()); //call the <vars> definition
 
+  //check to see if the tokenID is a keword and it's comparable to "main"
   if(t.id == keyword && !t.instance.compare("main"))
   {
-    root.insert(t);
-    t = scan(in);
-    root.insert(Block());
+    root.insert(t); //insert token into node
+    t = scan(in); //scan for next token
+    root.insert(Block()); //call the <block> definition
   }
 
-  return root;
+  return root; //return the root vector
 }
 
+//<block> -> kwTK(begin) <vars> <stats> kwTK(end)
 static node<std::string> Block()
 {
-  node<std::string> root("<block>");
+  node<std::string> root("<block>"); //set the root of the node to <block>
 
+  //check to see if the tokenID is a kwTK(begin)
   if(t.id == keyword && !t.instance.compare("begin"))
   {
-    root.insert(t);
-    t = scan(in);
+    root.insert(t); //insert token into node
+    t = scan(in); //scan for the next token
 
-    root.insert(Vars());
-    root.insert(Stats());
+    root.insert(Vars()); //call the <vars> definition
+    root.insert(Stats()); //call the <stats> definition
 
+    //check now to see if the <block> definition is at the last terminal
     if(t.id == keyword && !t.instance.compare("end"))
     {
-      root.insert(t);
-      t = scan(in);
-      return root;
+      root.insert(t); //insert token into node
+      t = scan(in); //scan for next token
+      return root; //return root vector
     }
-    parseErr("kwTK: 'end'");
+    parseErr("kwTK: 'end'"); //parse error when different token other than 'end' is given
   }
-  parseErr("kwTK: 'begin'");
-  return root;
+  parseErr("kwTK: 'begin'"); //parse error when different token other than 'begin' is given
+  return root; //return root vector
 }
 
+//<vars> -> Ɛ | kwTK(data) idTK(identifier) opTK(:) opTK(=) numTK(integer) opTK(;) <vars>
 static node<std::string> Vars()
 {
-  node<std::string> root("<vars>");
+  node<std::string> root("<vars>"); //set the root of the node to <vars>
 
+  //check to see if tokenID is a kwTK("data")
   if(t.id == keyword && !t.instance.compare("data"))
   {
-    root.insert(t);
-    t = scan(in);
+    root.insert(t); //insert root into node
+    t = scan(in); //scan for next token
 
+    //if tokenID is any tkID
     if(t.id == identifier)
     {
-      root.insert(t);
-      t = scan(in);
+      root.insert(t); //insert root into node
+      t = scan(in); //scan for next token
 
+      //if tokenID is opTK(":")
       if(t.id == opordel && !t.instance.compare(":"))
       {
-        root.insert(t);
-        t = scan(in);
+        root.insert(t); //insert root into node
+        t = scan(in); //scan for next token
+
+        //if tokenID is opTK("=") making our complete ":="
         if(t.id == opordel && !t.instance.compare("="))
         {
-          root.insert(t);
-          t = scan(in);
+          root.insert(t); //insert root into node
+          t = scan(in); //scan for next token
 
+          //if tokenID is any numTK
           if(t.id == integer)
           {
-            root.insert(t);
-            t = scan(in);
-            root.insert(Vars());
+            root.insert(t); //insert root into node
+            t = scan(in); //scan for next token
+            root.insert(Vars()); //call the <vars> definition
+
+            //if tokenID is opTK(";")
             if(t.id == opordel && !t.instance.compare(";"))
             {
-              root.insert(t);
-              t = scan(in);
+              root.insert(t); //insert root into note
+              t = scan(in); //scan for next token
 
+              //bandaid if statement
               if(t.instance == "data")
               {
                 Vars();
@@ -138,6 +153,7 @@ static node<std::string> Vars()
   return root;
 }
 
+//<expr> -> <N> - <expr> | <N>
 static node<std::string> Expr()
 {
   node<std::string> root("<expr>");
@@ -155,6 +171,7 @@ static node<std::string> Expr()
   return root;
 }
 
+//<N> -> <A> / <N> | <A> * <N> | <A>
 static node<std::string> N()
 {
   node<std::string> root("<N>");
@@ -178,6 +195,7 @@ static node<std::string> N()
   return root;
 }
 
+//<A> -> <M> + <A> | <M>
 static node<std::string> A()
 {
   node<std::string> root("<A>");
@@ -195,6 +213,7 @@ static node<std::string> A()
   return root;
 }
 
+// <M> -> * <M> | <R>
 static node<std::string> M()
 {
   node<std::string> root("<M>");
@@ -215,6 +234,7 @@ static node<std::string> M()
   return root;
 }
 
+//<R> -> opTK(() <expr> opTK()) | idTK | numTK
 static node<std::string> R()
 {
   node<std::string> root("<R>");
@@ -249,6 +269,7 @@ static node<std::string> R()
   return root;
 }
 
+//<stats> -> <stat> <mStat>
 static node<std::string> Stats()
 {
   node<std::string> root("<stats>");
@@ -259,6 +280,7 @@ static node<std::string> Stats()
   return root;
 }
 
+//<mStat> -> Ɛ | <stat> <mStat>
 static node<std::string> mStat()
 {
   node<std::string> root("<mStat>");
@@ -274,6 +296,10 @@ static node<std::string> mStat()
   return root;
 }
 
+/* <stat> -> <in> opTK(;) | <out> opTK(;) | <block> |
+ * <if> opTK(;) | <loop> opTK(;) | <assign> opTK(;) |
+ * <goto> opTK(;) | <label> opTK(;) |
+ */
 static node<std::string> Stat()
 {
   node<std::string> root("<stat>");
@@ -300,7 +326,7 @@ static node<std::string> Stat()
     }
     return root;
   }
-  else if(t.id == keyword && !t.instance.compare("begin"))
+  else if(t.id == keyword && !t.instance.compare("begin")) //<block> begin with kwTK("begin")
   {
     root.insert(Block());
     return root;
@@ -338,7 +364,7 @@ static node<std::string> Stat()
     }
     return root;
   }
-  else if(t.id == keyword && !t.instance.compare("proc"))
+  else if(t.id == keyword && !t.instance.compare("proc")) //<goto> begins with kwTK("proc")
   {
     root.insert(Goto());
     if(t.id == opordel && !t.instance.compare(";"))
@@ -349,7 +375,7 @@ static node<std::string> Stat()
     }
     return root;
   }
-  else if(t.id == keyword && !t.instance.compare("void"))
+  else if(t.id == keyword && !t.instance.compare("void")) //<label> begins with kwTK("void")
   {
     root.insert(Label());
     if(t.id == opordel && !t.instance.compare(";"))
@@ -364,6 +390,7 @@ static node<std::string> Stat()
   parseErr("kwTK : {in, out, begin, if, loop, assign, proc, or label}");
 }
 
+// <in> -> kwTK("getter") idTK
 static node<std::string> In()
 {
   node<std::string> root("<in>");
@@ -385,6 +412,7 @@ static node<std::string> In()
   return root;
 }
 
+// <out> -> kwTK("outter") <expr>
 static node<std::string> Out()
 {
   node<std::string> root("<Out>");
@@ -400,6 +428,7 @@ static node<std::string> Out()
   return root;
 }
 
+// <if> -> kwTK("if") opTK([) <expr> <R0> <expr> opTK(]) kwTK("then") <stat>
 static node<std::string> If()
 {
   node<std::string> root("<if>");
@@ -440,6 +469,7 @@ static node<std::string> If()
   return root;
 }
 
+// <loop> -> kwTK("loop") opTK([) <expr> <R0> <expr> opTK(]) <stat>
 static node<std::string> Loop()
 {
   node<std::string> root("<loop>");
@@ -473,6 +503,7 @@ static node<std::string> Loop()
   return root;
 }
 
+//<assign> -> kwTK("assign") idTK optk(:) opTK(=) <expr>
 static node<std::string> Assign()
 {
   node<std::string> root("<assign>");
@@ -506,6 +537,7 @@ static node<std::string> Assign()
   }
 }
 
+// <R0> -> opTK(=>) | opTK(=<) | opTK(==) | opTK([) opTK(==) opTK(]) | opTK(%)
 static node<std::string> R0()
 {
   node<std::string> root("<R0>");
@@ -558,8 +590,7 @@ static node<std::string> R0()
   return root;
 }
 
-
-
+// <label> -> kwTK(void) idTK
 static node<std::string> Label()
 {
   node<std::string> root("<label>");
@@ -582,6 +613,7 @@ static node<std::string> Label()
   return root;
 }
 
+// <goto> -> kwTK("proc") idTK
 static node<std::string> Goto()
 {
   node<std::string> root("<goto>");
@@ -604,6 +636,7 @@ static node<std::string> Goto()
   return root;
 }
 
+//parse error function to throw expected tokenID
 static void parseErr(std::string expected)
 {
   cout << "\n PARSE ERR \n";
