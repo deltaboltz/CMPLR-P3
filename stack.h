@@ -67,7 +67,7 @@ bool stack<K, I>::containsKey(K key, I scope)
       }
     }
   }
-  return false
+  return false;
 }
 
 template <class K, class I>
@@ -79,7 +79,7 @@ void stack<K, I>::printStack()
 
     for(int i = keysK.size() - 1; i >= 0; i--)
     {
-      std::cout << keysK[i] << " : " << scopesI[i] << "\n"
+      std::cout << keysK[i] << " : " << scopesI[i] << "\n";
     }
 
     std::cout << "\n:";
