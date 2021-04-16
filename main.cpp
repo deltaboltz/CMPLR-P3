@@ -1,9 +1,9 @@
 /*
  * By: Connor Schultz
- * Date Made: 04/03/2021
+ * Date Made: 04/15/2021
  * Files Needed: any file with extension .sp21 & makefile to compile all files
  * Made For: CS-4280 (Program Translation Project) @ UMSL
- * Last Update : 04/12/2021 - Added more commments
+ * Last Update : 04/15/2021 - Changed makefile to output : statSem
  */
 
  //NOTE : Test4 had an error to try to call
@@ -16,13 +16,12 @@
 
 using namespace std;
 
-//main prints out the tree for parsing
 int main(int argc, char* argv[])
 {
   if(argc == 1)
   {
     node<std::string> root = parser(cin);
-    root.preOrder();
+    root.statChecker();
   }
   else if(argc == 2) //check to see if the file has the proper extension
   {
@@ -49,7 +48,7 @@ int main(int argc, char* argv[])
     if(fs)
     {
       node<std::string> root = parser(fs);
-      root.preOrder();
+      root.statChecker();
     }
     else
     {
