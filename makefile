@@ -1,7 +1,7 @@
 
 CC = g++
 CFLAGS = -I.
-OUTPUT = frontEnd
+OUTPUT = statSem
 CLEANCOMM = rm -f
 
 %.o: %.cpp
