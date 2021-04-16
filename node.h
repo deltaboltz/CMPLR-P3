@@ -4,6 +4,7 @@
 #include <set>
 #include <vector>
 #include "token.h"
+#include "stack.h"
 
 template <class T>
 class node {
