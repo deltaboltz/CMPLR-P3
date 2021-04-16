@@ -127,7 +127,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
   {
     for(int i = 0; i < children_.size(); i++)
     {
-      children_[i].statChecker(s, scope + 1);
+      children_[i].statChecker(stat, scope + 1);
     }
 
     stat.popScope(scope + 1);
@@ -146,7 +146,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
           std::cout << "SEMANTICS ERR\n";
           std::cout << "Line " << tokens_[1].posString() << " \"";
           std::cout << tokens_[1].instance;
-          std::cout << "\" has not been defined in this scope\n"
+          std::cout << "\" has not been defined in this scope\n";
         }
       }
     }
