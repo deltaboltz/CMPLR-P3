@@ -110,7 +110,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
   {
     std::string k = tokens_[1].instance;
 
-    if(stat.contains(k, scope))
+    if(stat.containsKey(k, scope))
     {
       std::cout << "SEMANTICS ERR\n";
       std::cout << "Line " << tokens_[1].posString() << " \"";
@@ -141,7 +141,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
       {
         std::string k = tokens_[i].instance;
 
-        if(!stat.contains(k))
+        if(!stat.containsKey(k))
         {
           std::cout << "SEMANTICS ERR\n";
           std::cout << "Line " << tokens_[1].posString() << " \"";
