@@ -117,7 +117,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
       std::cout << tokens_[1].instance;
       std::cout << "\" has already been defined in this scope\n"
 
-      exit(-3)
+      exit(-3);
     }
 
     stat.push(k, scope);
