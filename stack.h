@@ -22,6 +22,13 @@ public:
 };
 
 template <class K, class I>
+void stack<K, I>::push(K key, I scope)
+{
+  keysK.push_back(key);
+  scopesI.push_back(scope);
+}
+
+template <class K, class I>
 void stack<K, I>::pop()
 {
   keysK.pop_back();
