@@ -10,18 +10,25 @@ class node {
   private:
       std::vector<node<T>> children_;
       std::vector<token> tokens_;
+
       T key_;
       void preHelper(std::ostream& out, std::string indent);
+
+      void statChecker(stack<std::string, int> &stat, int scope);
 
   public:
       // AST functionality
       void insert(node<T> child);
       void insert(token childToken);
       node<T> (T key);
+
       // traversal functionality
       void preOrder(std::ostream& out);
       void preOrder();
       std::string toString();
+
+      //Enables Static Semantics
+      void statChecker();
 };
 
 template <class T>
@@ -85,6 +92,70 @@ template <class T>
 void node<T>::preOrder()
 {
   preHelper(std::cout, "");
+}
+
+template <class T>
+void node<T>::statChecker()
+{
+  stack<std::string, int> s;
+
+  statChecker(s, 0);
+}
+
+template <class T>
+void node<T>::statChecker(stack<std::string, int> &stat, int scope)
+{
+  if(key_ == "<vars>" && tokens_.size())
+  {
+    std::string k = tokens_[1].instance;
+
+    if(stat.contains(k, scope))
+    {
+      std::cout << "SEMANTICS ERR\n";
+      std::cout << "Line " << tokens_[1].posString() << " \"";
+      std::cout << tokens_[1].instance;
+      std::cout << "\" has already been defined in this scope\n"
+
+      exit(-3)
+    }
+
+    stat.push(k, scope);
+
+  }
+  else if(key_ == "<block>")
+  {
+    for(int i = 0; i < children_.size(); i++)
+    {
+      children_[i].statChecker(s, scope + 1);
+    }
+
+    stat.popScope(scope + 1);
+    return;
+  }
+  else if(key_ == "<R>" || key_ == "<in>" || key_ == "<assign>")
+  {
+    for(int i = 0; i < tokens_.size(); i++)
+    {
+      if(tokens_[i].id == identifier)
+      {
+        std::string k = tokens_[i].instance;
+
+        if(!stat.contains(k))
+        {
+          std::cout << "SEMANTICS ERR\n";
+          std::cout << "Line " << tokens_[1].posString() << " \"";
+          std::cout << tokens_[1].instance;
+          std::cout << "\" has not been defined in this scope\n"
+        }
+      }
+    }
+  }
+
+  for(int i = 0; i < children_.size(); i++)
+  {
+    children_[i].statChecker(stat, scope);
+  }
+
 }
 
 #endif
