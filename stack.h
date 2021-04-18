@@ -69,6 +69,7 @@ bool stack<K, I>::containsKey(K key, I scope)
   {
     for(int i = 0; i < keysK.size(); i++)
     {
+      std::cout << keysK[i] << ", ";
       if(keysK[i] == key && scopesI[i] == scope)
       {
         return true;
