@@ -4,6 +4,7 @@
 #include <set>
 #include <vector>
 #include "token.h"
+#include "stack.h"
 
 template <class T>
 class node {
@@ -109,14 +110,14 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
   {
     std::string k = tokens_[1].instance;
 
-    if(stat.contains(k, scope))
+    if(stat.containsKey(k, scope))
     {
       std::cout << "SEMANTICS ERR\n";
       std::cout << "Line " << tokens_[1].posString() << " \"";
       std::cout << tokens_[1].instance;
-      std::cout << "\" has already been defined in this scope\n"
+      std::cout << "\" has already been defined in this scope\n";
 
-      exit(-3)
+      exit(-3);
     }
 
     stat.push(k, scope);
@@ -126,7 +127,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
   {
     for(int i = 0; i < children_.size(); i++)
     {
-      children_[i].statChecker(s, scope + 1);
+      children_[i].statChecker(stat, scope + 1);
     }
 
     stat.popScope(scope + 1);
@@ -140,12 +141,12 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
       {
         std::string k = tokens_[i].instance;
 
-        if(!stat.contains(k))
+        if(!stat.containsKey(k))
         {
           std::cout << "SEMANTICS ERR\n";
           std::cout << "Line " << tokens_[1].posString() << " \"";
           std::cout << tokens_[1].instance;
-          std::cout << "\" has not been defined in this scope\n"
+          std::cout << "\" has not been defined in this scope\n";
         }
       }
     }
