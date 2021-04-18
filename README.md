@@ -11,7 +11,7 @@ make allcean:
 make:
   compiles the entire program
 
-frontEnd *filename*:
+statSem *filename*:
   runs the program *filename* is the file you wish to run in this program
   NOTE: sample tests are given, they are labeled with .sp21 extensions
 	!!!THE PROGRAM ONLY READS IN FILES WITH EXTENSION OF .sp21!!!
