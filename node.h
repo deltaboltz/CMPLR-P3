@@ -124,6 +124,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
     stat.push(k, scope);
 
   }
+  std::cout << "PAST <VARS> CHECK" << "\n";
   else if(key_ == "<block>")
   {
     for(int i = 0; i < children_.size(); i++)
@@ -136,6 +137,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
   }
   else if(key_ == "<R>" || key_ == "<in>" || key_ == "<assign>" || key_ == "<label>" || key_ == "<goto>")
   {
+    cout << "Inside second else if for key: " << key_ << "\n";
     for(int i = 0; i < tokens_.size(); i++)
     {
       if(tokens_[i].id == identifier)
