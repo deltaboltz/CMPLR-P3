@@ -133,7 +133,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
     stat.popScope(scope + 1);
     return;
   }
-  else if(key_ == "<R>" || key_ == "<in>" || key_ == "<assign>")
+  else if(key_ == "<R>" || key_ == "<in>" || key_ == "<assign>" || key_ == "<label>" || key_ == "<goto>")
   {
     for(int i = 0; i < tokens_.size(); i++)
     {
