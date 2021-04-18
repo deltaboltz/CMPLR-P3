@@ -147,6 +147,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
           std::cout << "Line " << tokens_[1].posString() << " \"";
           std::cout << tokens_[1].instance;
           std::cout << "\" has not been defined in this scope\n";
+          exit(-3);
         }
       }
     }
