@@ -139,7 +139,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
     std::cout << "Inside second else if for key: " << key_ << "\n";
     for(int i = 0; i < tokens_.size(); i++)
     {
-      std::cout << "Inside for loop i is at: " << i << "\n";
+      std::cout << "Inside for loop i is at: " << i << " size is: " << tokens_.size() << "\n";
       if(tokens_[i].id == identifier)
       {
         std::cout << "Inside for if for .id == identifier" << "\n";
