@@ -285,7 +285,7 @@ static node<std::string> mStat()
 {
   node<std::string> root("<mStat>");
 
-  if(t.id == keyword && (!t.instance.compare("stat") || !t.instance.compare("outter") || !t.instance.compare("getter")))
+  if(t.id == keyword && (!t.instance.compare("stat") || !t.instance.compare("outter") || !t.instance.compare("getter") || !t.instance.compare("assign")))
   {
     root.insert(Stat());
     root.insert(mStat());
