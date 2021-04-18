@@ -150,7 +150,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
           std::cout << "tokens that are in vector are: " << "\n";
           for(int j = 0; j < tokens_size(); j++)
           {
-            std::cout << tokens_[i];
+            std::cout << tokens_[i].instance;
           }
           exit(-3);
         }
