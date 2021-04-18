@@ -51,6 +51,8 @@ bool stack<K, I>::containsKey(K key)
   {
     for(int i = 0; i < keysK.size(); i++)
     {
+      std::cout << "next key is: ";
+      std::cout << keysK[i] << ", ";
       if(keysK[i] == key)
       {
         std::cout << "returning true" << "\n";
@@ -69,8 +71,6 @@ bool stack<K, I>::containsKey(K key, I scope)
   {
     for(int i = 0; i < keysK.size(); i++)
     {
-      std::cout << "next key is: ";
-      std::cout << keysK[i] << ", ";
       if(keysK[i] == key && scopesI[i] == scope)
       {
         return true;
