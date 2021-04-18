@@ -38,9 +38,12 @@ void stack<K, I>::pop()
 template <class K, class I>
 void stack<K, I>::popScope(I scope)
 {
-  while(scopesI.size() && scopesI.back() == scope)
+  if(scopesI.size() > 0)
   {
-    pop();
+      while(scopesI.back() == scope)
+      {
+        pop();
+      }
   }
 }
 
