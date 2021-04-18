@@ -145,7 +145,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
         std::cout << "Inside for if for .id == identifier" << "\n";
         std::string k = tokens_[i].instance;
         std::cout << "set k to: " << k << "\n";
-        std::cout << "k is still: " << k << "/n";
+        std::cout << "k is still: " << k << "\n";
 
         if(!stat.containsKey(k))
         {
