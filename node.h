@@ -144,7 +144,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
         if(!stat.containsKey(k))
         {
           std::cout << "SEMANTICS ERR\n";
-          std::cout << "Line " << tokens_[1].posString() << " \"";
+          std::cout << "Line " << tokens_[i].posString() << " \"";
           std::cout << tokens_[i].instance;
           std::cout << "\" has not been defined in this scope\n";
           exit(-3);
