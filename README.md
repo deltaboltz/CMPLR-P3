@@ -1,4 +1,4 @@
-# CMPLR-P2 for CS 4280 @ UMSL - HAD TO USE BACK UP CODE
+# CMPLR-P3 for CS 4280 @ UMSL
 
 How to Run:
 
