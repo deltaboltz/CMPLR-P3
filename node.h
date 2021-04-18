@@ -136,17 +136,11 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
   }
   else if(key_ == "<R>" || key_ == "<in>" || key_ == "<assign>" || key_ == "<label>" || key_ == "<goto>")
   {
-    std::cout << "Inside second else if for key: " << key_ << "\n";
     for(int i = 0; i < tokens_.size(); i++)
     {
-      std::cout << "Inside for loop i is at: " << i << " size is: " << tokens_.size() << "\n";
       if(tokens_[i].id == identifier)
       {
-        std::cout << "Inside for if for .id == identifier" << "\n";
         std::string k = tokens_[i].instance;
-        std::cout << "set k to: " << k << "\n";
-        std::cout << "k is still: " << k << "\n";
-
         if(!stat.containsKey(k))
         {
           std::cout << "SEMANTICS ERR\n";
