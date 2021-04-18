@@ -50,7 +50,7 @@ bool stack<K, I>::containsKey(K key)
   if(keysK.size() > 0)
   {
     std::cout << "keysK.size() is: " << keysK.size() << "\n";
-    for(int i = 0; i < keysK.size(); i++)
+    for(int i = 0; i < keysK.size()-1; i++)
     {
       if(keysK[i] == key)
       {
