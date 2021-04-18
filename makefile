@@ -14,8 +14,8 @@ $(OUTPUT): main.o parser.o scanner.o
 clean:
 	$(CLEANCOMM) *.o
 
-outclean:
-	$(CLEANCOMM) $(OUTPUT)
+allclean:
+	$(CLEANCOMM) $(OUTPUT) *.o
 
 run:
 	$(OUTPUT) input.sp21
