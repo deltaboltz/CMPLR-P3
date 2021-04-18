@@ -415,7 +415,7 @@ static node<std::string> In()
 // <out> -> kwTK("outter") <expr>
 static node<std::string> Out()
 {
-  node<std::string> root("<Out>");
+  node<std::string> root("<out>");
 
   if(t.id == keyword && !t.instance.compare("outter"))
   {
