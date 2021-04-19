@@ -109,6 +109,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
   std::cout << "In statChecker for node: " << key_ << "\n";
   if(key_ == "<vars>" && tokens_.size())
   {
+    std::cout << "token value is: " << tokens_[1].instance << "\n";
     std::string k = tokens_[1].instance;
     std::cout << "k value is: " << k << "\n";
 
