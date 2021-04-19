@@ -110,6 +110,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
   if(key_ == "<vars>" && tokens_.size())
   {
     std::string k = tokens_[1].instance;
+    std::cout << "k value is: " << k << "\n";
 
     if(stat.containsKey(k, scope))
     {
