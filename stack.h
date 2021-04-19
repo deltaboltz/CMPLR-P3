@@ -24,6 +24,7 @@ public:
 template <class K, class I>
 void stack<K, I>::push(K key, I scope)
 {
+  std::cout << key << "\n";
   keysK.push_back(key);
   scopesI.push_back(scope);
 }
