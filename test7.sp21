@@ -8,7 +8,7 @@ loop [ y => z ]
   begin
   data z := 3 ;
      begin
-     proc x ; 
+     proc x ;
      end
   end ;
 outter x ;
