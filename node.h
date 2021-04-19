@@ -107,7 +107,7 @@ template <class T>
 void node<T>::statChecker(stack<std::string, int> &stat, int scope)
 {
   std::cout << "In statChecker for node: " << key_ << "\n";
-  if(key_ == "<vars>" && tokens_.size())
+  if(key_ == "<vars>" || key_ == "data" && tokens_.size())
   {
     std::cout << "token value is: " << tokens_[1].instance << "\n";
     std::string k = tokens_[1].instance;
