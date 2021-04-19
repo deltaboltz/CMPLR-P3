@@ -48,7 +48,6 @@ token scan(std::istream& in)
     while(state > 0 && state <= 1000)
     {
         in.get(c);
-        cout << (int)c << in.fail() << "\t" << linePos << ":" << charPos << "\n"; //debug cout
         if(in.eof() || in.fail())
         {
             c = (char)-1;
