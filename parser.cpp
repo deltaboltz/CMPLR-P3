@@ -125,7 +125,6 @@ static node<std::string> Vars()
           {
             root.insert(t); //insert root into node
             t = scan(in); //scan for next token
-            //root.insert(Vars()); //call the <vars> definition
 
             //if tokenID is opTK(";")
             if(t.id == opordel && !t.instance.compare(";"))
@@ -133,13 +132,6 @@ static node<std::string> Vars()
               root.insert(t); //insert root into note
               t = scan(in); //scan for next token
               root.insert(Vars());
-
-
-              //bandaid if statement
-              /*if(t.instance == "data")
-              {
-                Vars();
-              }*/
               return root;
             }
             return root;
